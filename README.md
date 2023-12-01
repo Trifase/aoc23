@@ -1,2 +1,2 @@
-# AOC2022
-2022 Advent of Code
+# AOC23
+2023 Advent of Code
