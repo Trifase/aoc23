@@ -1,7 +1,6 @@
-from rich import print
-
 from codetiming import Timer
 from icecream import ic
+from rich import print
 
 from utils import SESSIONS, get_data
 
