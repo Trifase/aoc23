@@ -58,7 +58,7 @@ def part1(data):
 
     max_red, max_green, max_blue = 12, 13, 14
 
-    pprint(f"OK?\tRed\tGreen\tBlue\tsol1\tGame")
+    pprint("OK?\tRed\tGreen\tBlue\tsol1\tGame")
 
     for game in data:
         id = game.split(":")[0].split()[1]
@@ -76,7 +76,7 @@ def part1(data):
 def part2(data):
     sol2 = 0
 
-    pprint(f"Power\nRed\tGreen\tBlue\tsol2\tGame")
+    pprint("Power\nRed\tGreen\tBlue\tsol2\tGame")
 
     for game in data:
         red, green, blue = analize_game(game)
