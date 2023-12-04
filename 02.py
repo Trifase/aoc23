@@ -17,7 +17,7 @@ else:
     ic.disable()
 
 
-def pprint(data):
+def pprint(data) -> None:
     if INFO:
         print(data)
 

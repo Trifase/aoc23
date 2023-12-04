@@ -9,8 +9,8 @@ YEAR = 2023
 DAY = 3
 
 EXAMPLE = False
-INFO = True
-DEBUG = True
+INFO = False
+DEBUG = False
 
 if DEBUG:
     ic.enable()
@@ -18,7 +18,7 @@ else:
     ic.disable()
 
 
-def pprint(data):
+def pprint(data: any) -> None:
     if INFO:
         print(data)
 
@@ -106,19 +106,17 @@ with Timer(name="Parsing", text="Parsing done: \t{milliseconds:.0f} ms"):
 
 # Part 1
 @Timer(name="Part 1", text="Part 1 done: \t{milliseconds:.0f} ms")
-def part1(data):
+def part1(data: any) -> int:
     sol1 = 0
-
     for n in numbers:
         if n.has_symbol:
             sol1 += n.number
-
     return sol1
 
 
 # Part 2
 @Timer(name="Part 2", text="Part 2 done: \t{milliseconds:.0f} ms")
-def part2(data):
+def part2(data: any) -> int:
     sol2 = 0
 
     gears_points = set()
