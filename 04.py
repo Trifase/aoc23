@@ -7,7 +7,7 @@ from utils import SESSIONS, get_data
 YEAR = 2023
 DAY = 4
 
-EXAMPLE = False
+EXAMPLE = True
 INFO = True
 DEBUG = True
 
