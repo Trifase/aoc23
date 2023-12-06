@@ -69,6 +69,9 @@ def part1(data: any) -> int:
 # Part 2
 @Timer(name="Part 2", text="Part 2 done: \t{milliseconds:.0f} ms")
 def part2(data: any) -> int:
+    """
+    Grug brain developer math illiterate. iterate.
+    """
     sol2 = 0
 
     times, distances = zip(*data.items())
@@ -80,6 +83,9 @@ def part2(data: any) -> int:
 
 @Timer(name="Part 2-alt", text="Part 2-alt done: \t{milliseconds:.0f} ms")
 def part2_alt(data: any) -> int:
+    """
+    This is a more mathematical approach to the problem.
+    """
     times, distances = zip(*data.items())
     ret = 1
     times = [int("".join(str(x) for x in times))]
