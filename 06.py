@@ -5,6 +5,7 @@ from codetiming import Timer
 from icecream import ic
 
 from utils import SESSIONS, get_data
+import math
 
 YEAR = 2023
 DAY = 6
@@ -77,10 +78,25 @@ def part2(data: any) -> int:
 
     return sol2
 
+@Timer(name="Part 2-alt", text="Part 2-alt done: \t{milliseconds:.0f} ms")
+def part2_alt(data: any) -> int:
+    times, distances = zip(*data.items())
+    ret = 1
+    times = [int("".join(str(x) for x in times))]
+    distances = [int("".join(str(x) for x in distances))]
+
+    for t, d in zip(times, distances):
+        p1 = math.ceil((t - math.sqrt(t**2 - 4*(d+1)))/2)
+        p2 = math.floor((t + math.sqrt(t**2 - 4*(d+1)))/2)
+        n_sol = p2 - p1 + 1
+        ret *= n_sol
+    return ret
 
 s1 = part1(data)
 s2 = part2(data)
+s3 = part2_alt(data)
 
 print("=========================")
 print(f"Soluzione Parte 1: [{s1}]")
 print(f"Soluzione Parte 2: [{s2}]")
+print(f"Soluzione Parte 2 Alt: [{s3}]")
