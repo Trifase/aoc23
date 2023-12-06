@@ -84,7 +84,6 @@ def stop_everything(_range, cerco, range_cercato, this_map):
         return _range
         # quit()
 
-
 def get_next_ranges(source_range: set, this_map: dict):
     next_ranges = set()
     for source in source_range:
