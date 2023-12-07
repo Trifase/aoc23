@@ -98,7 +98,10 @@ def calculate_hand(line: str, jokers: bool = False) -> tuple[int]:
 
     elif jokers and "J" in hand:
         all_values = []
-        for c in card_points.keys():
+        # Note: well'use reversed() to start from the highest card, and stop when we find a 7.
+        # The need to use reverses arise when we have a hand like 'JJJJJ': we must interpret it as 'AAAAA', not '11111',
+        # otherwise it would fail the order when compared to 'AAAAA'.
+        for c in reversed(card_points.keys()):
             v = value_of_hand(hand.replace("J", c))
             all_values.append(v)
             if v == 7:  # no need to search further
