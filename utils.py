@@ -29,7 +29,7 @@ class MovingThing:
     It has a move_to() to move the point to new coords.
     You can mode like this:
 
-    point.move_to((3,6)
+    point.move_to((3,6))
 
     point.coords = 3,6
 
@@ -40,6 +40,8 @@ class MovingThing:
     x: int = 0
     y: int = 0
 
+    dir: str = "N"
+
     @property
     def coords(self):
         return (self.x, self.y)
@@ -49,12 +51,43 @@ class MovingThing:
         self.x = coords[0]
         self.y = coords[1]
 
+    def turn(self, dir: str):
+        dirs = ["N", "E", "S", "W"]
+        curr_dir = dirs.index(self.dir)
+        if dir == "R":
+            self.dir = dirs[(curr_dir + 1) % 4]
+        elif dir == "L":
+            self.dir = dirs[(curr_dir - 1) % 4]
+
+    def go(self, units: int = 1):
+        match self.dir:
+            case "N":
+                self.y += units
+            case "S":
+                self.y -= units
+            case "E":
+                self.x += units
+            case "W":
+                self.x -= units
+
     def move(self, dir: str, units: int = 1):
         match dir:
             case "U":
                 self.y += units
             case "D":
                 self.y -= units
+            case "R":
+                self.x += units
+            case "L":
+                self.x -= units
+        self.coords = (self.x, self.y)
+
+    def grid_move(self, dir: str, units: int = 1):
+        match dir:
+            case "U":
+                self.y -= units
+            case "D":
+                self.y += units
             case "R":
                 self.x += units
             case "L":
