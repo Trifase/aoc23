@@ -87,9 +87,7 @@ with Timer(name="Parsing", text="Parsing done: \t{milliseconds:.0f} ms"):
     for n in numbers:
         neighbors_coords = set()
         for cifra in n.coords:
-            neighbors_coords.update(
-                set(get_neighbors(cifra, grid, diagonals=True, return_values=False))
-            )
+            neighbors_coords.update(set(get_neighbors(cifra, grid, diagonals=True, return_values=False)))
         neighbors_coords.difference_update(set(n.coords))
         n.neighbors = neighbors_coords
 

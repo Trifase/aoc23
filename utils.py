@@ -180,28 +180,30 @@ def sliding_window(lista: list, length: int) -> list:
     for i in range(0, len(lista) - length + 1):
         yield lista[i : i + length]
 
+
 def make_grid(data: list[str]) -> list[list[str]]:
     return [list(line) for line in data]
 
+
 def get_neighbors(coords: tuple[int], grid: list[str], diagonals: bool = False, return_values: bool = False) -> list[tuple[int]]:
-        y, x = coords
-        y_max = len(grid)
-        x_max = len(grid[0])
+    y, x = coords
+    y_max = len(grid)
+    x_max = len(grid[0])
 
-        su = (y - 1, x) if y != 0 else None
-        dx = (y, x + 1) if x != x_max - 1 else None
-        giu = (y + 1, x) if y != y_max - 1 else None
-        sx = (y, x - 1) if x != 0 else None
+    su = (y - 1, x) if y != 0 else None
+    dx = (y, x + 1) if x != x_max - 1 else None
+    giu = (y + 1, x) if y != y_max - 1 else None
+    sx = (y, x - 1) if x != 0 else None
 
-        if diagonals:
-            su_dx = (y - 1, x + 1) if y != 0 and x != x_max - 1 else None
-            giu_dx = (y + 1, x + 1) if y != y_max - 1 and x != x_max - 1 else None
-            giu_sx = (y + 1, x - 1) if y != y_max - 1 and x != 0 else None
-            su_sx = (y - 1, x - 1) if y != 0 and x != 0 else None
-            if return_values:
-                return [grid[y][x] for y, x in [su, dx, giu, sx, su_dx, giu_dx, giu_sx, su_sx] if y and x]
-            return [t for t in [su, dx, giu, sx, su_dx, giu_dx, giu_sx, su_sx] if t]
-
+    if diagonals:
+        su_dx = (y - 1, x + 1) if y != 0 and x != x_max - 1 else None
+        giu_dx = (y + 1, x + 1) if y != y_max - 1 and x != x_max - 1 else None
+        giu_sx = (y + 1, x - 1) if y != y_max - 1 and x != 0 else None
+        su_sx = (y - 1, x - 1) if y != 0 and x != 0 else None
         if return_values:
-            return [grid[y][x] for y, x in [su, dx, giu, sx] if y and x]
-        return [t for t in [su, dx, giu, sx] if t]
+            return [grid[y][x] for y, x in [su, dx, giu, sx, su_dx, giu_dx, giu_sx, su_sx] if y and x]
+        return [t for t in [su, dx, giu, sx, su_dx, giu_dx, giu_sx, su_sx] if t]
+
+    if return_values:
+        return [grid[y][x] for y, x in [su, dx, giu, sx] if y and x]
+    return [t for t in [su, dx, giu, sx] if t]

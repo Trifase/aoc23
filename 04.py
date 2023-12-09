@@ -22,7 +22,6 @@ def pprint(data: any) -> None:
         print(data)
 
 
-
 # Input parsing
 with Timer(name="Parsing", text="Parsing done: \t{milliseconds:.0f} ms"):
     """
@@ -42,14 +41,13 @@ def part1(data: any) -> int:
         matches = winning_numbers.intersection(card_numbers)
 
         points = 0
-    
+
         if matches:
             points = 1
             for _ in range(len(matches) - 1):
                 points = points * 2
 
         sol1 += points
-
 
     return sol1
 
@@ -80,6 +78,7 @@ def part2(data: any) -> int:
     sol2 = sum([card["quantity"] for card in cards.values()])
 
     return sol2
+
 
 s1 = part1(data)
 s2 = part2(data)

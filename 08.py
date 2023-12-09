@@ -30,12 +30,12 @@ with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
     We'll parse the input line by line.
     """
     data = get_data(YEAR, DAY, SESSIONS, strip=True, example=EXAMPLE)
-    instructions = [int(x) for x in data[0].replace('L', '0').replace('R', '1')]
+    instructions = [int(x) for x in data[0].replace("L", "0").replace("R", "1")]
 
     network = {}
     for line in data[2:]:
-        key, value = line.split(' = ')
-        left, right = value[1:-1].split(', ')
+        key, value = line.split(" = ")
+        left, right = value[1:-1].split(", ")
         network[key] = [left, right]
 
     data = instructions, network
@@ -51,10 +51,9 @@ def part1(data: any) -> int:
     instructions = data[0]
     network = data[1]
 
-    this = 'AAA'
+    this = "AAA"
     steps = 0
-    while this != 'ZZZ':
-
+    while this != "ZZZ":
         left, right = network[this]
         if instructions[steps % len(instructions)] == 0:
             this = left
@@ -80,13 +79,13 @@ def part2(data: any) -> int:
     instructions = data[0]
     network = data[1]
 
-    this_list = [x for x in network.keys() if x.endswith('A')]
+    this_list = [x for x in network.keys() if x.endswith("A")]
     list_steps = []
 
     for this in this_list:
         steps = 0
 
-        while not this.endswith('Z'):
+        while not this.endswith("Z"):
             left, right = network[this]
             if instructions[steps % len(instructions)] == 0:
                 this = left
@@ -96,8 +95,7 @@ def part2(data: any) -> int:
 
         list_steps.append(steps)
 
-    sol2=math.lcm(*list_steps)
-
+    sol2 = math.lcm(*list_steps)
 
     return sol2
 

@@ -75,11 +75,10 @@ def part2(data: any) -> int:
     sol2 = 0
 
     times, distances = zip(*data.items())
-    sol2 = get_ways_of_beating(
-        int("".join(str(x) for x in times)), int("".join(str(x) for x in distances))
-    )
+    sol2 = get_ways_of_beating(int("".join(str(x) for x in times)), int("".join(str(x) for x in distances)))
 
     return sol2
+
 
 @Timer(name="Part 2-alt", text="Part 2-alt done: \t{milliseconds:.0f} ms")
 def part2_alt(data: any) -> int:
@@ -92,11 +91,12 @@ def part2_alt(data: any) -> int:
     distances = [int("".join(str(x) for x in distances))]
 
     for t, d in zip(times, distances):
-        p1 = math.ceil((t - math.sqrt(t**2 - 4*(d+1)))/2)
-        p2 = math.floor((t + math.sqrt(t**2 - 4*(d+1)))/2)
+        p1 = math.ceil((t - math.sqrt(t**2 - 4 * (d + 1))) / 2)
+        p2 = math.floor((t + math.sqrt(t**2 - 4 * (d + 1))) / 2)
         n_sol = p2 - p1 + 1
         ret *= n_sol
     return ret
+
 
 s1 = part1(data)
 s2 = part2(data)

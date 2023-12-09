@@ -1,7 +1,8 @@
+import os
+from datetime import date
+
 from codetiming import Timer
 from icecream import ic
-from datetime import date
-import os
 
 # from rich import print
 from utils import SESSIONS, get_data
@@ -46,12 +47,12 @@ def next_number(seq: list[int], previsions: list[list[list]], backwards: bool = 
         next_number = seq[0]
 
     while previsions:
-        l = previsions.pop()
+        last_list = previsions.pop()
 
         if backwards:
-            next_sum = l[0]
+            next_sum = last_list[0]
         else:
-            next_sum = l[-1]
+            next_sum = last_list[-1]
 
         if previsions:
             if backwards:
@@ -64,7 +65,8 @@ def next_number(seq: list[int], previsions: list[list[list]], backwards: bool = 
     else:
         next_number += next_sum
     return next_number
-    
+
+
 # Input parsing
 print()
 with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
@@ -77,11 +79,10 @@ with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
 # Part 1
 @Timer(name="Part 1", text="Part 1......DONE: {milliseconds:.0f} ms")
 def part1(data: any) -> int:
-
     sol1 = 0
 
     for line in data:
-        line = [int(x) for x in line.split(' ')]
+        line = [int(x) for x in line.split(" ")]
         seqs = reduce_diffs(line)
         next_n = next_number(line, seqs)
         # print(f"{' '.join(str(c) for c in line)} → {next_n}")
@@ -98,7 +99,7 @@ def part2(data: any) -> int:
     sol2 = 0
 
     for line in data:
-        line = [int(x) for x in line.split(' ')]
+        line = [int(x) for x in line.split(" ")]
         seqs = reduce_diffs(line)
         next_n = next_number(line, seqs, backwards=True)
         # print(f"{next_n} ← {' '.join(str(c) for c in line)} ")

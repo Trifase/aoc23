@@ -21,17 +21,19 @@ def pprint(data: any) -> None:
     if INFO:
         print(data)
 
+
 def get_location_from_seed(seed: int, maps: dict) -> int:
     """
     From a single seed to a single location. We'll iterate all the maps and apply the changes to the seed.
     """
     for map in maps.values():
-        for _range, change in map['ranges'].items():
-            origin, end = [int(x) for x in _range.split('-')]
+        for _range, change in map["ranges"].items():
+            origin, end = [int(x) for x in _range.split("-")]
             if seed in range(origin, end):
                 seed = seed + change
                 break
     return seed
+
 
 def make_maps(data: list) -> dict:
     """
@@ -46,28 +48,29 @@ def make_maps(data: list) -> dict:
             mappa = {}
 
         if not line:
-            mappa['ranges'] = dict(sorted(mappa['ranges'].items()))
-            maps[map_number] =mappa
+            mappa["ranges"] = dict(sorted(mappa["ranges"].items()))
+            maps[map_number] = mappa
             map_number += 1
 
-        elif line.endswith(':'):
+        elif line.endswith(":"):
             mappa = {}
-            mappa['name'] = line.split(' map')[0]
-            mappa['ranges'] = {}
+            mappa["name"] = line.split(" map")[0]
+            mappa["ranges"] = {}
 
         else:
             dest, origin, _range = [int(x) for x in line.split()]
 
-            mappa['ranges'][f'{origin}-{origin + _range}'] = dest - origin
+            mappa["ranges"][f"{origin}-{origin + _range}"] = dest - origin
 
         # edge case: add the last map
         if line == data[-1]:
-            mappa['ranges'] = dict(sorted(mappa['ranges'].items()))
+            mappa["ranges"] = dict(sorted(mappa["ranges"].items()))
             maps[map_number] = mappa
     return maps
 
+
 def get_next_ranges(source_range: set, this_map: dict) -> set:
-    """ 
+    """
     This will take a set of ranges and a single map. It will return a set of mapped destination ranges, but only the part of the source range inside a mapped range
     or those that are not covered by the map.
     """
@@ -78,27 +81,26 @@ def get_next_ranges(source_range: set, this_map: dict) -> set:
         cerco_min, cerco_max = source
         cerco = (cerco_min, cerco_max)
         found = False
-        for _range, change in this_map['ranges'].items():
-
-            _range_min, _range_max = [int(x) for x in _range.split('-')]
+        for _range, change in this_map["ranges"].items():
+            _range_min, _range_max = [int(x) for x in _range.split("-")]
             _range = (_range_min, _range_max)
 
-            if cerco_min < _range_min and _range_min <= cerco_max < _range_max: # parte iniziale non coperta
+            if cerco_min < _range_min and _range_min <= cerco_max < _range_max:  # parte iniziale non coperta
                 parte_modificata = (_range_min + change, cerco_max + change)
                 next_ranges.add(parte_modificata)
                 found = True
-            
+
             elif cerco_min >= _range_min and cerco_max <= _range_max:  # completely inside
                 parte_modificata = (cerco_min + change, cerco_max + change)
                 next_ranges.add(parte_modificata)
                 found = True
 
-            elif _range_min <= cerco_min < _range_max and cerco_max > _range_max: # parte finale non coperta
+            elif _range_min <= cerco_min < _range_max and cerco_max > _range_max:  # parte finale non coperta
                 parte_modificata = (cerco_min + change, _range_max + change)
                 next_ranges.add(parte_modificata)
                 found = True
 
-            elif cerco_min < _range_min and cerco_max > _range_max: # entrambe le parti scoperte
+            elif cerco_min < _range_min and cerco_max > _range_max:  # entrambe le parti scoperte
                 parte_modificata = (_range_min + change, _range_max + change)
                 next_ranges.add(parte_modificata)
                 found = True
@@ -111,6 +113,7 @@ def get_next_ranges(source_range: set, this_map: dict) -> set:
 
     return next_ranges
 
+
 def get_location_range_from_seed_range(seed_range: tuple, maps: dict) -> tuple:
     """
     For every seed range, we'll get the location range. We do this by iterating all the maps.
@@ -119,8 +122,8 @@ def get_location_range_from_seed_range(seed_range: tuple, maps: dict) -> tuple:
 
     for mappa in maps.values():
         next_ranges = set()
-        for _range, _ in mappa['ranges'].items():
-            _range = [int(x) for x in _range.split('-')]
+        for _range, _ in mappa["ranges"].items():
+            _range = [int(x) for x in _range.split("-")]
 
         next_ranges.update(get_next_ranges(ranges_to_search, mappa))
 
@@ -141,7 +144,7 @@ with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
 @Timer(name="Part 1", text="Part 1......DONE: {milliseconds:.0f} ms")
 def part1(data: any) -> int:
     sol1 = 0
-    seeds = [int(x) for x in data[0].split(': ')[1].split(' ')]
+    seeds = [int(x) for x in data[0].split(": ")[1].split(" ")]
     maps = make_maps(data)
 
     locations = []
@@ -160,7 +163,7 @@ def part2(data: any) -> int:
     sol2 = 0
 
     maps = make_maps(data)
-    seeds = [int(x) for x in data[0].split(': ')[1].split(' ')]
+    seeds = [int(x) for x in data[0].split(": ")[1].split(" ")]
 
     initial_ranges = []
 
@@ -181,6 +184,7 @@ def part2(data: any) -> int:
     sol2 = min([_range[0] for _range in ranges_to_search])
     return sol2
 
+
 s1 = part1(data)
 s2 = part2(data)
 
@@ -188,4 +192,3 @@ print()
 print(f"=========:: [DAY {DAY}] ::=========")
 print(f"Soluzione Parte 1: [{s1}]")
 print(f"Soluzione Parte 2: [{s2}]")
-

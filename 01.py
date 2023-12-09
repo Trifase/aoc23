@@ -28,10 +28,10 @@ with Timer(name="Parsing", text="Parsing done: \t{milliseconds:.0f} ms"):
 @Timer(name="Part 1", text="Part 1 done: \t{milliseconds:.0f} ms")
 def part1(data):
     if EXAMPLE:
-        data = get_data_from_file('data/1-example-a.txt', strip=True)
+        data = get_data_from_file("data/1-example-a.txt", strip=True)
     sol1 = 0
     for line in data:
-        calibration_value = ''
+        calibration_value = ""
         for c in line:
             if c.isdigit():
                 calibration_value += c
@@ -40,24 +40,15 @@ def part1(data):
 
     return sol1
 
+
 def extract_numbers(line):
     numbers = {}
 
-    strings = {
-        'one': 1,
-        'two': 2,
-        'three': 3,
-        'four': 4,
-        'five': 5,
-        'six': 6,
-        'seven': 7,
-        'eight': 8,
-        'nine': 9
-        }
+    strings = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
 
     for i, c in enumerate(line):
         if c.isdigit():
-            numbers[i] = int(c) 
+            numbers[i] = int(c)
 
     for s in strings.keys():
         indexes = [i for i in range(len(line)) if line.startswith(s, i)]
@@ -65,6 +56,7 @@ def extract_numbers(line):
             numbers[i] = strings[s]
 
     return dict(sorted(numbers.items()))
+
 
 # Part 2
 @Timer(name="Part 2", text="Part 2 done: \t{milliseconds:.0f} ms")
@@ -81,6 +73,7 @@ def part2(data):
 
     # print(f"Parsed {d} lines")
     return sol2
+
 
 s1 = part1(data)
 s2 = part2(data)
