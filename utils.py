@@ -44,12 +44,12 @@ class MovingThing:
 
     @property
     def coords(self):
-        return (self.x, self.y)
+        return (self.y, self.x)
 
     @coords.setter
     def coords(self, coords):
-        self.x = coords[0]
-        self.y = coords[1]
+        self.x = coords[1]
+        self.y = coords[0]
 
     def turn(self, dir: str):
         dirs = ["N", "E", "S", "W"]
@@ -62,9 +62,9 @@ class MovingThing:
     def go(self, units: int = 1):
         match self.dir:
             case "N":
-                self.y += units
-            case "S":
                 self.y -= units
+            case "S":
+                self.y += units
             case "E":
                 self.x += units
             case "W":
@@ -83,16 +83,25 @@ class MovingThing:
         self.coords = (self.x, self.y)
 
     def grid_move(self, dir: str, units: int = 1):
+        print(f"[GRID] {dir} {units}")
         match dir:
             case "U":
                 self.y -= units
+            case "N":
+                self.y -= units
             case "D":
+                self.y += units
+            case "S":
                 self.y += units
             case "R":
                 self.x += units
+            case "E":
+                self.x += units
             case "L":
                 self.x -= units
-        self.coords = (self.x, self.y)
+            case "W":
+                self.x -= units
+        self.coords = (self.y, self.x)
 
     def move_to(self, coords: tuple[int, int]):
         self.x = coords[0]

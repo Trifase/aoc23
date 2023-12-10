@@ -115,3 +115,13 @@ print()
 print(f"=========:: [DAY {DAY}] ::=========")
 print(f"Soluzione Parte 1: [{s1}]")
 print(f"Soluzione Parte 2: [{s2}]")
+
+
+string = "3 -5 -6 15 91 296 783 1837 3951 7968 15412 29285 55880 108627 215786 435173 881471 1775732 3533590 6920582 13323821"
+line = [int(x) for x in string.split(" ")]
+seqs = reduce_diffs(line)
+for i in seqs:
+    print(i)
+next_n = next_number(line, seqs)
+
+print(next_n)
