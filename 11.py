@@ -96,39 +96,26 @@ def calculate_distancies(
 print()
 with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
     """
-    We'll parse the input line by line.
+    We'll parse the input line by line. We'll return the grid (a list of lists), the empty rows and the empty columns sets.
     """
+
     data = get_data(YEAR, DAY, SESSIONS, strip=True, example=EXAMPLE)
     empty_rows = set()
     empty_columns = set()
 
-    # We need to expand the empty rows
+    # We'll detect empty rows and columns, and store their indexes in two sets.
+    # Empty rows
     new_data = []
     for index, line in enumerate(data):
         if all(x == "." for x in line):
             empty_rows.add(index)
 
-    # for line in data:
-    #     new_data.append(list(line))
-    #     if all(x == '.' for x in line):
-    #         new_data.append(list(line))
-
-    # if a column is empty, we need to duplicate it
-    # there is probably an easier way to do this
+    # Empty columns
     for col_number in range(len(data[0])):
         col = [row[col_number] for row in data]
         if all(x == "." for x in col):
             empty_columns.add(col_number)
-    # duplicate_columns = set()
 
-    # for col_number in range(len(new_data[0])):
-    #     col = [row[col_number] for row in new_data]
-    #     if all(x == '.' for x in col):
-    #         duplicate_columns.add(col_number)
-
-    # for index in sorted(duplicate_columns, reverse=True):
-    #     for row in new_data:
-    #         row.insert(index, '.')
 
     data = [data, empty_rows, empty_columns]
 
@@ -154,6 +141,7 @@ def part2(data: any) -> int:
     data, empty_rows, empty_columns = data
 
     galaxies, new_grid = get_galaxies(data)
+    # We are not replacing the empty rows/columns, we're adding. So we need to subtract 1 from the expansion.
     expansion = 1_000_000 - 1
     sol2 = calculate_distancies(new_grid, galaxies, empty_rows, empty_columns, expansion, debug=False)
 
