@@ -123,10 +123,11 @@ with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
 # Part 1
 @Timer(name="Part 1", text="Part 1......DONE: {milliseconds:.0f} ms")
 def part1(data: any) -> int:
-    data, empty_rows, empty_columns = data
     sol1 = 0
 
+    data, empty_rows, empty_columns = data
     galaxies, new_grid = get_galaxies(data)
+
     expansion = 1
     sol1 = calculate_distancies(new_grid, galaxies, empty_rows, empty_columns, expansion, debug=False)
 
@@ -139,8 +140,8 @@ def part2(data: any) -> int:
     sol2 = 0
 
     data, empty_rows, empty_columns = data
-
     galaxies, new_grid = get_galaxies(data)
+
     # We are not replacing the empty rows/columns, we're adding. So we need to subtract 1 from the expansion.
     expansion = 1_000_000 - 1
     sol2 = calculate_distancies(new_grid, galaxies, empty_rows, empty_columns, expansion, debug=False)
