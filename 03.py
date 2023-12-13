@@ -1,7 +1,7 @@
 from codetiming import Timer
 from dataclassy import dataclass
 from icecream import ic
-from rich import print
+# from rich import print
 
 from utils import SESSIONS, get_data, get_neighbors, make_grid
 
@@ -43,6 +43,7 @@ with Timer(name="Parsing", text="Parsing done: \t{milliseconds:.0f} ms"):
     We'll parse the input line by line, make a grid. Then we'll find the numbers and their coordinates, computate some data, and put into a list.
     """
     data = get_data(YEAR, DAY, SESSIONS, strip=True, example=EXAMPLE)
+    data = get_data(YEAR, '3-debora', SESSIONS, strip=True, example=False)
 
     grid = make_grid(data)
 
@@ -83,6 +84,9 @@ with Timer(name="Parsing", text="Parsing done: \t{milliseconds:.0f} ms"):
                     )
                 )
 
+    print(len(numbers))
+    for i in range(20):
+        print(numbers[i].number)
     # populate the neighbors, and other stuff
     for n in numbers:
         neighbors_coords = set()
