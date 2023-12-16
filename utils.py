@@ -42,6 +42,8 @@ class MovingThing:
 
     dir: str = "N"
 
+    heading: int = 0
+
     @property
     def coords(self):
         return (self.y, self.x)
@@ -106,6 +108,9 @@ class MovingThing:
     def move_to(self, coords: tuple[int, int]):
         self.x = coords[0]
         self.y = coords[1]
+
+    def __repr__(self):
+        return f"MovingThing ({self.x}, {self.y}) dir={self.dir})"
 
 
 def rematch(pattern, string):
