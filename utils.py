@@ -48,6 +48,10 @@ class MovingThing:
     def coords(self):
         return (self.y, self.x)
 
+    @property
+    def coords_grid(self):
+        return (self.x, self.y)
+
     @coords.setter
     def coords(self, coords):
         self.x = coords[1]

@@ -2,6 +2,7 @@ import os
 
 # from pprint import pprint as pp
 from datetime import date
+from rich import print as richprint
 
 from codetiming import Timer
 from icecream import ic
@@ -31,7 +32,7 @@ def pprint(data: any) -> None:
         print(data)
 
 
-def energize_grid(data: list[list[str]], start: tuple[int], dir: str) -> list[tuple[int]]:
+def energize_grid(data: list[list[str]], start: tuple[int], dir: str, return_grid=False) -> list[tuple[int]]:
     energized = set()
 
     beams = []
@@ -108,6 +109,8 @@ def energize_grid(data: list[list[str]], start: tuple[int], dir: str) -> list[tu
                 beams.remove(beam)
                 continue
 
+    if return_grid:
+        return energized, beams
     return len(energized)
 
 
@@ -118,7 +121,7 @@ with Timer(name="Parsing", text="Parsing.....DONE: {milliseconds:.0f} ms"):
     We'll parse the input line by line.
     """
     data = get_data(YEAR, DAY, SESSIONS, strip=True, example=EXAMPLE)
-    print(data)
+    # print(data)
 
 
 # Part 1
@@ -149,6 +152,97 @@ def print_grid(data, energized):
 def part2(data: any) -> int:
     sol2 = 0
     energized_set = []
+
+    # # A weak try to print a nice grid ###############
+    # winner = (110, 104)
+    # winner_dir = "N"
+
+    # energized, beams = energize_grid(data, winner, winner_dir, return_grid=True)
+    # # print(energized)
+    # data = [list(line) for line in data]
+    # for beam in energized:
+    #     y, x = beam
+    #     cell = data[y][x]
+    #     if y == 0:
+    #         up = None
+    #         down = (y + 1, x)
+    #         left = (y, x - 1 )
+    #         right = (y, x + 1)
+    #     elif y == len(data) - 1:
+    #         up = (y - 1, x)
+    #         down = None
+    #         left = (y, x - 1 )
+    #         right = (y, x + 1)
+    #     elif x == 0:
+    #         up = (y - 1, x)
+    #         down = (y + 1, x)
+    #         left = None
+    #         right = (y, x + 1)
+    #     elif x == len(data[0]) - 1:
+    #         up = (y - 1, x)
+    #         down = (y + 1, x)
+    #         left = (y, x - 1 )
+    #         right = None
+    #     else:
+    #         up = (y - 1, x)
+    #         down = (y + 1, x)
+    #         left = (y, x - 1 )
+    #         right = (y, x + 1)
+
+
+    #     if cell == ".":
+    #         if up in energized and down in energized and left in energized and right in energized:
+    #             data[y][x] = "[red]╬[/red]"
+    #         elif up in energized and down in energized and left in energized:
+    #             data[y][x] = "[red]╣[/red]"
+    #         elif up in energized and down in energized and right in energized:
+    #             data[y][x] = "[red]╠[/red]"
+    #         elif up in energized and left in energized and right in energized:
+    #             data[y][x] = "[red]╩[/red]"
+    #         elif down in energized and left in energized and right in energized:
+    #             data[y][x] = "[red]╦[/red]"
+    #         elif up in energized and down in energized:
+    #             data[y][x] = "[red]║[/red]"
+    #         elif left in energized and right in energized:
+    #             data[y][x] = "[red]═[/red]"
+    #         elif up in energized and left in energized:
+    #             data[y][x] = "[red]╝[/red]"
+    #         elif up in energized and right in energized:
+    #             data[y][x] = "[red]╚[/red]"
+    #         elif down in energized and left in energized:
+    #             data[y][x] = "[red]╗[/red]"
+    #         elif down in energized and right in energized:
+    #             data[y][x] = "[red]╔[/red]"
+    #         elif up in energized:
+    #             data[y][x] = "[red]╨[/red]"
+    #         elif down in energized:
+    #             data[y][x] = "[red]╥[/red]"
+    #         elif left in energized:
+    #             data[y][x] = "[red]╡[/red]"
+    #         elif right in energized:
+    #             data[y][x] = "[red]╞[/red]"
+    #         else:
+    #             data[y][x] = '[white] [/white]'
+
+    # for y in range(len(data)):
+    #     for x in range(len(data[0])):
+    #         if data[y][x] == '\\':
+    #             data[y][x] = "[blue]╲[/blue]"
+    #         elif data[y][x] == '/':
+    #             data[y][x] = "[blue]/[/blue]"
+    #         elif data[y][x] == '|':
+    #             data[y][x] = "[blue]│[/blue]"
+    #         elif data[y][x] == '-':
+    #             data[y][x] = "[blue]─[/blue]"
+    #         elif data[y][x] == '.':
+    #             data[y][x] = " "
+
+    # from rich.console import Console
+    # console = Console(highlight=False)
+    # for line in data:
+    #     line_str = ''.join(line)
+    #     console.print(line_str)
+    #################################################
 
     # from west
     for y in range(len(data)):
